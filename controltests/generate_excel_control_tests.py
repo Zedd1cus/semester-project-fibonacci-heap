@@ -42,7 +42,7 @@ def get_path(number_of_elements: int, data_number: str, path_of_operation) -> st
     return path
 
 
-def generate_bench_insert(number_of_elements: int, data_number: str) -> None:
+def generate_bench(number_of_elements: int, data_number: str) -> None:
     first_number = get_value(number_of_elements, data_number)
 
     final_path_insert = get_path(number_of_elements, data_number, path_insert)
@@ -70,7 +70,7 @@ arr_of_data_numbers = ['01', '02', '03', '04', '05']
 
 for i in arr_of_number_of_elements:
     for j in arr_of_data_numbers:
-        generate_bench_insert(i, j)
+        generate_bench(i, j)
 
 wb.save(fn)
 wb.close()

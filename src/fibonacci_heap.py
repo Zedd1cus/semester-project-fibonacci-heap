@@ -1,5 +1,5 @@
 import math
-from double_link_list import DoubleLinkList, ListNode
+from src.double_link_list import DoubleLinkList, ListNode
 
 class FibonacciHeap:
 
@@ -7,7 +7,6 @@ class FibonacciHeap:
         self.trees = DoubleLinkList()
         self.least = None # Min
         self.count = 0 # кол-во корневых узлов
-        self.max_order = 0
 
     def insert(self, key):
         new_tree = ListNode(key)

@@ -1,9 +1,6 @@
 from src.fibonacci_heap import FibonacciHeap
 import time
 
-input_file_names = ['/100.txt', '/5000.txt', '/100000.txt', '/5000000.txt']
-input_dir_names = ['/01', '/02', '/03', '/04', '/05']
-
 def fill_heap(heap, array):
     for key in array:
         heap.insert(key)
@@ -22,7 +19,7 @@ def bench_union(path:str):
     new_heap = FibonacciHeap()
     with open(path) as input_data:
         input_keys = [key for key in input_data.readlines()]
-        dever = input_keys.index('')
+        dever = input_keys.index('\n')
         input_keys1 = [int(key) for key in input_keys[:dever]]
         input_keys2 = [int(key) for key in input_keys[dever+1:]]
         heap1 = fill_heap(new_heap, input_keys1)
@@ -44,3 +41,6 @@ def bench_extract_min(path:str):
         if minim != exctr_minim:
             raise RuntimeError('Что-то пошло не так')
     return time_mcs
+
+if __name__ == '__main__':
+    print(bench_union('C:/Users/ninza/Projects/semester-project-fibonacci-heap/dataset/100.txt'))
