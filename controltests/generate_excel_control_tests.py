@@ -52,24 +52,24 @@ def generate_bench(number_of_elements: int, data_number: str) -> None:
         ws['F' + str(first_number + count)] = bench_union(final_path_union)
         count += 1
 
+if __name__ == '__main__':
+    path_extract_min = 'C:/ITIS/ASD/1sw/dataset/extractmin'
+    path_insert = 'C:/ITIS/ASD/1sw/dataset/insert'
+    path_union = 'C:/ITIS/ASD/1sw/dataset/union'
 
-path_extract_min = 'C:/ITIS/ASD/1sw/dataset/extractmin'
-path_insert = 'C:/ITIS/ASD/1sw/dataset/insert'
-path_union = 'C:/ITIS/ASD/1sw/dataset/union'
+    fn = 'controltests.xlsx'
+    wb = load_workbook(fn)
+    ws = wb['first_data']
 
-fn = 'controltests.xlsx'
-wb = load_workbook(fn)
-ws = wb['first_data']
+    arr_of_number_of_elements = [100, 5_000, 100_000, 5_000_000]
+    arr_of_data_numbers = ['01', '02', '03', '04', '05']
 
-arr_of_number_of_elements = [100, 5_000, 100_000, 5_000_000]
-arr_of_data_numbers = ['01', '02', '03', '04', '05']
+    for i in arr_of_number_of_elements:
+        for j in arr_of_data_numbers:
+            generate_bench(i, j)
 
-for i in arr_of_number_of_elements:
-    for j in arr_of_data_numbers:
-        generate_bench(i, j)
-
-wb.save(fn)
-wb.close()
+    wb.save(fn)
+    wb.close()
 
 
 
