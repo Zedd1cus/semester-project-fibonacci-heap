@@ -2,10 +2,6 @@ from openpyxl import load_workbook
 from benchmark.benchmark import bench_insert, bench_union, bench_extract_min
 
 
-def get_name_of_txt(number_of_elements: int) -> str:
-    return f'/{number_of_elements}.txt'
-
-
 def get_value(number_of_elements: int, data_number: str) -> int:
     some_dict = get_some_dict(number_of_elements)
     return some_dict[data_number]
