@@ -1,7 +1,6 @@
 from src.fibonacci_heap import FibonacciHeap
 import time
 
-
 input_file_names = ['/100.txt', '/5000.txt', '/100000.txt', '/5000000.txt']
 input_dir_names = ['/01', '/02', '/03', '/04', '/05']
 
