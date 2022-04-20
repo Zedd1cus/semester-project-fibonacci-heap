@@ -43,4 +43,4 @@ def bench_extract_min(path:str):
     return time_mcs
 
 if __name__ == '__main__':
-    print(bench_union('C:/Users/ninza/Projects/semester-project-fibonacci-heap/dataset/100.txt'))
+    print(bench_extract_min('C:/Users/ninza/Projects/semester-project-fibonacci-heap/dataset/extractmin/01/5000.txt'))

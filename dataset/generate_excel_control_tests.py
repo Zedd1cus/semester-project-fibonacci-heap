@@ -1,4 +1,4 @@
-from openpyxl import load_workbook
+from openpyxl import load_workbook, Workbook
 from benchmark.benchmark import bench_insert, bench_union, bench_extract_min
 
 
@@ -53,13 +53,11 @@ def generate_bench(number_of_elements: int, data_number: str) -> None:
         count += 1
 
 if __name__ == '__main__':
-    path_extract_min = 'C:/ITIS/ASD/1sw/dataset/extractmin'
-    path_insert = 'C:/ITIS/ASD/1sw/dataset/insert'
-    path_union = 'C:/ITIS/ASD/1sw/dataset/union'
-
-    fn = 'controltests.xlsx'
-    wb = load_workbook(fn)
-    ws = wb['first_data']
+    ex_file = Workbook()
+    ws = ex_file.create_sheet(title='first_data', index=0)
+    path_extract_min = 'extractmin'
+    path_insert = 'insert'
+    path_union = 'union'
 
     arr_of_number_of_elements = [100, 5_000, 100_000, 5_000_000]
     arr_of_data_numbers = ['01', '02', '03', '04', '05']
@@ -68,8 +66,8 @@ if __name__ == '__main__':
         for j in arr_of_data_numbers:
             generate_bench(i, j)
 
-    wb.save(fn)
-    wb.close()
+    ex_file.save(filename='controltests.xlsx')
+    ex_file.close()
 
 
 
