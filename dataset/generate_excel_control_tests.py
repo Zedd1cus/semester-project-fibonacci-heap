@@ -1,4 +1,4 @@
-from openpyxl import load_workbook, Workbook
+from openpyxl import Workbook
 from benchmark.benchmark import bench_insert, bench_union, bench_extract_min
 
 
@@ -34,12 +34,16 @@ def get_path(number_of_elements: int, data_number: str, path_of_operation) -> st
 
 def generate_bench(number_of_elements: int, data_number: str) -> None:
     first_number = get_value(number_of_elements, data_number)
+
     if data_number == '01':
         ws['A'+str(first_number)] = number_of_elements
+
     final_path_insert = get_path(number_of_elements, data_number, path_insert)
     final_path_extract_min = get_path(number_of_elements, data_number, path_extract_min)
     final_path_union = get_path(number_of_elements, data_number, path_union)
+
     ws['B' + str(first_number)] = data_number
+
     count = 0
     while count < 10:
         ws['D' + str(first_number + count)] = bench_insert(final_path_insert)
@@ -47,9 +51,11 @@ def generate_bench(number_of_elements: int, data_number: str) -> None:
         ws['F' + str(first_number + count)] = bench_union(final_path_union)
         count += 1
 
+
 if __name__ == '__main__':
     ex_file = Workbook()
     ws = ex_file.create_sheet(title='first_data', index=0)
+
     path_extract_min = 'extractmin'
     path_insert = 'insert'
     path_union = 'union'
@@ -69,14 +75,19 @@ if __name__ == '__main__':
     ws['J2'] = 'INSERT'
     ws['K2'] = 'EXTRACT_MIN'
     ws['L2'] = 'UNION'
+
     for i in arr_of_number_of_elements:
         for j in arr_of_data_numbers:
             generate_bench(i, j)
+
     for i in range(len(arr_of_number_of_elements)):
         ws['I' + str(3+i)] = arr_of_number_of_elements[i]
+
         frst_position = get_value(arr_of_number_of_elements[i], '01')
+
         ws['J' + str(3+i)] = f'=СРЗНАЧ(D{frst_position}:D{frst_position+49})'
         ws['K' + str(3+i)] = f'=СРЗНАЧ(E{frst_position}:E{frst_position+49})'
         ws['L' + str(3+i)] = f'=СРЗНАЧ(F{frst_position}:F{frst_position+49})'
+
     ex_file.save(filename='controltests.xlsx')
     ex_file.close()

@@ -1,12 +1,14 @@
 from src.fibonacci_heap import FibonacciHeap
 import time
 
-def fill_heap(heap, array):
+
+def fill_heap(heap: FibonacciHeap, array: list) -> FibonacciHeap:
     for key in array:
         heap.insert(key)
     return heap
 
-def bench_insert(path:str):
+
+def bench_insert(path: str) -> float:
     new_heap = FibonacciHeap()
     with open(path) as input_data:
         input_keys = [int(key) for key in input_data.readlines()]
@@ -15,7 +17,8 @@ def bench_insert(path:str):
         time_mcs = (time.time() - time_fst)*1000
     return time_mcs
 
-def bench_union(path:str):
+
+def bench_union(path: str) -> float:
     new_heap = FibonacciHeap()
     with open(path) as input_data:
         input_keys = [key for key in input_data.readlines()]
@@ -29,7 +32,8 @@ def bench_union(path:str):
         time_mcs = (time.time() - time_fst) * 1000
     return time_mcs
 
-def bench_extract_min(path:str):
+
+def bench_extract_min(path: str) -> float:
     new_heap = FibonacciHeap()
     with open(path) as input_data:
         input_keys = [int(key) for key in input_data.readlines()]
@@ -42,5 +46,3 @@ def bench_extract_min(path:str):
             raise RuntimeError('Что-то пошло не так')
     return time_mcs
 
-if __name__ == '__main__':
-    print(bench_extract_min('C:/Users/ninza/Projects/semester-project-fibonacci-heap/dataset/extractmin/01/5000.txt'))

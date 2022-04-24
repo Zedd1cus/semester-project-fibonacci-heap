@@ -1,8 +1,8 @@
 import math
 from src.double_link_list import DoubleLinkList, ListNode
 
-class FibonacciHeap:
 
+class FibonacciHeap:
     def __init__(self):
         self.trees = DoubleLinkList()
         self.least = None # Min
@@ -11,7 +11,7 @@ class FibonacciHeap:
     def insert(self, key):
         new_tree = ListNode(key)
         self.trees.set(new_tree)
-        if (self.least is None or key < self.least.key):
+        if self.least is None or key < self.least.key:
             self.least = new_tree
         self.count = self.count + 1
 
@@ -79,6 +79,7 @@ class FibonacciHeap:
             self.trees.head.left = other.trees.tale
             self.trees.tale = other.trees.tale
             self.count += other.count
+
 
 if __name__ == '__main__':
     fheap = FibonacciHeap()
