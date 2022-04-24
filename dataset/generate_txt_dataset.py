@@ -86,6 +86,6 @@ def min2(some_arr):
     return m2
 
 
-arr_for_elements = [100, 5_000, 100_000, 5_000_000]
+arr_for_elements = [100, 500, 900, 1300, 1700, 2100, 2500, 2900]
 make_dirs()
 make_txt_files(arr_for_elements)

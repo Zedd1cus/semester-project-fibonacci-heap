@@ -1,4 +1,4 @@
-from openpyxl import load_workbook
+from openpyxl import load_workbook, Workbook
 from benchmark.benchmark import bench_insert, bench_union, bench_extract_min
 
 
@@ -8,17 +8,11 @@ def get_value(number_of_elements: int, data_number: str) -> int:
 
 
 def get_some_dict(number: int) -> dict:
-    if number == 100:
-        return built_dict(2)
-
-    elif number == 5000:
-        return built_dict(52)
-
-    elif number == 100000:
-        return built_dict(102)
-
-    elif number == 5000000:
-        return built_dict(152)
+    position = 2
+    for num in arr_of_number_of_elements:
+        if num == number:
+            return built_dict(position)
+        position += 50
 
 
 def built_dict(first_number_in_range: int) -> dict:
@@ -40,11 +34,12 @@ def get_path(number_of_elements: int, data_number: str, path_of_operation) -> st
 
 def generate_bench(number_of_elements: int, data_number: str) -> None:
     first_number = get_value(number_of_elements, data_number)
-
+    if data_number == '01':
+        ws['A'+str(first_number)] = number_of_elements
     final_path_insert = get_path(number_of_elements, data_number, path_insert)
     final_path_extract_min = get_path(number_of_elements, data_number, path_extract_min)
     final_path_union = get_path(number_of_elements, data_number, path_union)
-
+    ws['B' + str(first_number)] = data_number
     count = 0
     while count < 10:
         ws['D' + str(first_number + count)] = bench_insert(final_path_insert)
@@ -53,47 +48,35 @@ def generate_bench(number_of_elements: int, data_number: str) -> None:
         count += 1
 
 if __name__ == '__main__':
-    path_extract_min = 'C:/ITIS/ASD/1sw/dataset/extractmin'
-    path_insert = 'C:/ITIS/ASD/1sw/dataset/insert'
-    path_union = 'C:/ITIS/ASD/1sw/dataset/union'
+    ex_file = Workbook()
+    ws = ex_file.create_sheet(title='first_data', index=0)
+    path_extract_min = 'extractmin'
+    path_insert = 'insert'
+    path_union = 'union'
 
-    fn = 'controltests.xlsx'
-    wb = load_workbook(fn)
-    ws = wb['first_data']
-
-    arr_of_number_of_elements = [100, 5_000, 100_000, 5_000_000]
+    arr_of_number_of_elements = [100, 500, 900, 1300, 1700, 2100, 2500, 2900]
     arr_of_data_numbers = ['01', '02', '03', '04', '05']
 
+    ws['A1'] = 'КОЛИЧЕСТВО ЭЛЕМЕНТОВ'
+    ws['B1'] = 'НАБОР ДАННЫХ'
+    ws['C1'] = 'НОМЕР ЗАПУСКА'
+    ws['D1'] = 'INSERT'
+    ws['E1'] = 'EXTRACT_MIN'
+    ws['F1'] = 'UNION'
+    ws['I1'] = 'Среднее время выполнения'
+    ws['J1'] = 'В МС'
+    ws['I2'] = 'Размер набора данных'
+    ws['J2'] = 'INSERT'
+    ws['K2'] = 'EXTRACT_MIN'
+    ws['L2'] = 'UNION'
     for i in arr_of_number_of_elements:
         for j in arr_of_data_numbers:
             generate_bench(i, j)
-
-    wb.save(fn)
-    wb.close()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    for i in range(len(arr_of_number_of_elements)):
+        ws['I' + str(3+i)] = arr_of_number_of_elements[i]
+        frst_position = get_value(arr_of_number_of_elements[i], '01')
+        ws['J' + str(3+i)] = f'=СРЗНАЧ(D{frst_position}:D{frst_position+49})'
+        ws['K' + str(3+i)] = f'=СРЗНАЧ(E{frst_position}:E{frst_position+49})'
+        ws['L' + str(3+i)] = f'=СРЗНАЧ(F{frst_position}:F{frst_position+49})'
+    ex_file.save(filename='controltests.xlsx')
+    ex_file.close()

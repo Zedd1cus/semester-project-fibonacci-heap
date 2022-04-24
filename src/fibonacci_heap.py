@@ -60,7 +60,7 @@ class FibonacciHeap:
     def max_order(self):
         max_order = -math.inf
         for node in self.trees:
-            if node.order < max_order:
+            if node.order > max_order:
                 max_order = node.order
         return max_order
 
