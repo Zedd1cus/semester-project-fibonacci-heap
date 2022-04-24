@@ -1,5 +1,6 @@
 from math import inf
 
+
 class ListNode:
     def __init__(self, key, left=None, right=None, parrent=None):
         self.key = key
@@ -16,8 +17,8 @@ class ListNode:
             return True
         return False
 
-class DoubleLinkList:
 
+class DoubleLinkList:
     def __init__(self, parrent = None):
         self.head = None
         self.tale = None

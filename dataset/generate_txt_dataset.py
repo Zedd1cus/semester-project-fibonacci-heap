@@ -2,7 +2,7 @@ import os
 from random import randint
 
 
-def make_dirs():
+def make_dirs() -> None:
     if not (os.path.isdir('insert') and os.path.isdir('extractmin') and os.path.isdir('union')):
         os.mkdir('insert')
         os.mkdir('extractmin')
@@ -14,7 +14,7 @@ def make_dirs():
             os.makedirs('union/0' + str(i))
 
 
-def make_txt_for_insert(i, j, some_arr):
+def make_txt_for_insert(i: str, j: str, some_arr: list) -> None:
     for k in some_arr:
         with open(i + '/' + j + '/' + str(k) + '.txt', 'w') as f:
             for m in range(k-1):
@@ -26,7 +26,7 @@ def make_txt_for_insert(i, j, some_arr):
                 f.write(str(some_number))
 
 
-def make_txt_for_union(i, j, some_arr):
+def make_txt_for_union(i: str, j: str, some_arr: list) -> None:
     for k in some_arr:
         with open(i + '/' + j + '/' + str(k) + '.txt', 'w') as f:
             for m in range(1, 2*k - 1):
@@ -42,7 +42,7 @@ def make_txt_for_union(i, j, some_arr):
                 f.write(str(some_number))
 
 
-def make_txt_for_extract_min(i, j, some_arr):
+def make_txt_for_extract_min(i: str, j: str, some_arr: list) -> None:
     for k in some_arr:
         some_set = set()
 
@@ -57,7 +57,7 @@ def make_txt_for_extract_min(i, j, some_arr):
                 f.write(str(min2(some_set)))
 
 
-def make_txt_files(some_arr):
+def make_txt_files(some_arr: list) -> None:
     for i in os.listdir():
         if i[-3:] == '.py':
             continue
